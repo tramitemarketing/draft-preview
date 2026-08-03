@@ -116,12 +116,17 @@ body {
 .motivazione { font-size: 13.5px; line-height: 1.5; color: var(--secondario); }
 
 .actions { display: flex; gap: 8px; margin-top: 15px; }
-.btn { border: none; border-radius: 15px; padding: 15px; text-align: center; font-size: 16px; font-weight: 600; letter-spacing: -.02em; cursor: pointer; font-family: inherit; transition: transform .15s ease, background .15s ease; }
+.btn {
+  border: none; border-radius: 15px; padding: 15px; text-align: center;
+  font-size: 16px; font-weight: 600; letter-spacing: -.02em; cursor: pointer; font-family: inherit;
+  transition: transform .32s cubic-bezier(.32,.72,0,1), background .22s cubic-bezier(.32,.72,0,1), opacity .22s cubic-bezier(.32,.72,0,1);
+}
 .btn.primario { flex: 2; background: var(--azione); color: var(--superficie); }
 .btn.primario:hover { background: var(--azione-premuto); }
-.btn.secondario { flex: 1; background: var(--superficie); border: 1px solid var(--bordo-forte); color: var(--primario); font-weight: 500; }
-.btn.secondario:hover { background: var(--chip); }
-.btn:active { transform: scale(.98); }
+.btn.secondario { flex: 1; background: var(--azione-chip); border: none; color: var(--azione-premuto); font-weight: 600; }
+.btn.secondario:hover { background: #d7e3ec; }
+.btn:active { transform: scale(.965); opacity: .82; }
+.btn:focus-visible { outline: none; box-shadow: 0 0 0 4px color-mix(in srgb, var(--azione) 30%, transparent); }
 .meta { text-align: center; font-size: 11.5px; color: var(--terziario); margin-top: 12px; }
 
 .caption { text-align: center; font-size: 12px; color: var(--terziario); max-width: 320px; }
