@@ -1,0 +1,242 @@
+<title>Draft — Golden Example</title>
+<style>
+:root {
+  --fondo: #EFECE4;
+  --superficie: #FDFBF6;
+  --chip: #F1EEE5;
+  --skeleton: #E3DDCF;
+  --inattivo: #C6BFAE;
+  --terziario: #9B9585;
+  --secondario: #6B665A;
+  --primario: #1A1C20;
+  --azione: #2E75A8;
+  --azione-premuto: #1F4F70;
+  --azione-chip: #E4EDF4;
+  --op: #6B5B3F; --op-bg: #F0E9DB;
+  --bordo: rgba(26,28,32,.08);
+  --bordo-forte: rgba(26,28,32,.10);
+  --sep: rgba(26,28,32,.06);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--fondo);
+  color: var(--primario);
+  font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+  font-variant-numeric: tabular-nums;
+  padding: 40px 24px 80px;
+}
+.wrap { max-width: 1040px; margin: 0 auto; }
+.intro { max-width: 640px; }
+.eyebrow { font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--terziario); }
+h1 { font-size: 30px; font-weight: 600; letter-spacing: -.03em; margin: 8px 0 6px; }
+.note { font-size: 13.5px; line-height: 1.6; color: var(--secondario); }
+.note b { color: var(--primario); font-weight: 600; }
+.frames { display: flex; gap: 28px; flex-wrap: wrap; align-items: flex-start; margin-top: 34px; }
+
+/* --- MOBILE FRAME --- */
+.mobile {
+  width: 322px; height: 610px; flex: none;
+  background: var(--fondo);
+  border-radius: 28px;
+  border: 1px solid var(--bordo-forte);
+  display: flex; flex-direction: column; overflow: hidden;
+  box-shadow: 0 24px 60px -30px rgba(26,28,32,.35);
+}
+.mobile .content { flex: 1; display: flex; flex-direction: column; padding: 22px 19px 0; }
+.mobile .tabbar {
+  display: flex; padding: 11px 12px 7px;
+  background: rgba(253,251,246,.86);
+  border-top: 1px solid var(--bordo-forte);
+  backdrop-filter: blur(14px);
+}
+.tab { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.tab .dot { width: 18px; height: 18px; border-radius: 6px; }
+.tab .lbl { font-size: 10.5px; font-weight: 600; letter-spacing: -.01em; }
+.tab.active .dot { background: var(--azione); }
+.tab.active .lbl { color: var(--azione); }
+.tab:not(.active) .dot { border: 1.6px solid var(--inattivo); background: none; }
+.tab:not(.active) .lbl { color: var(--terziario); font-weight: 500; }
+.homebar { display: flex; justify-content: center; padding: 5px 0 9px; background: rgba(253,251,246,.86); }
+.homebar span { width: 106px; height: 4px; border-radius: 100px; background: var(--primario); opacity: .2; }
+
+/* --- DESKTOP FRAME --- */
+.desktop {
+  width: 660px; height: 440px; flex: none;
+  background: var(--fondo);
+  border-radius: 16px;
+  border: 1px solid var(--bordo-forte);
+  display: flex; overflow: hidden;
+  box-shadow: 0 24px 60px -30px rgba(26,28,32,.35);
+}
+.sidebar { width: 178px; flex: none; border-right: 1px solid var(--bordo); padding: 20px 14px; }
+.sidebar .logo { font-family: Georgia, "Times New Roman", serif; font-size: 22px; padding-left: 8px; }
+.navitem { margin-top: 22px; display: flex; flex-direction: column; gap: 3px; }
+.navlink { padding: 8px 10px; border-radius: 9px; font-size: 13px; }
+.navlink.active { background: var(--azione-chip); color: var(--azione); font-weight: 600; }
+.navlink:not(.active) { color: var(--secondario); }
+.desktop-main { flex: 1; display: flex; justify-content: center; padding: 28px 24px; overflow: hidden; }
+.desktop-main .content { width: 100%; max-width: 340px; }
+
+/* --- SHARED: result state --- */
+.kicker-row { display: flex; align-items: baseline; justify-content: space-between; }
+.eyebrow-sm { font-size: 10px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--terziario); }
+.change-ctx { font-size: 10.5px; color: var(--terziario); text-decoration: underline; text-underline-offset: 2px; background: none; border: none; cursor: pointer; font-family: inherit; }
+.card {
+  margin-top: 12px;
+  background: var(--superficie);
+  border: 1px solid var(--bordo);
+  border-radius: 22px;
+  padding: 19px 18px;
+  box-shadow: 0 1px 1px rgba(26,28,32,.03), 0 14px 30px -14px rgba(26,28,32,.14);
+}
+.chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.chip { font-size: 11px; font-weight: 600; padding: 4px 9px; border-radius: 7px; letter-spacing: -.01em; }
+.chip.energia { color: var(--op); background: var(--op-bg); }
+.chip.durata { color: var(--secondario); background: var(--chip); font-weight: 500; }
+.chip.importanza { color: var(--azione-premuto); background: var(--azione-chip); }
+.titolo {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 24px; line-height: 1.2; letter-spacing: -.01em;
+  margin-top: 15px;
+}
+.motivazione-row { display: flex; gap: 10px; margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--sep); }
+.badge-ai {
+  flex: none; width: 21px; height: 21px; border-radius: 7px;
+  background: var(--azione); color: var(--superficie);
+  font-size: 9.5px; font-weight: 600;
+  display: flex; align-items: center; justify-content: center; margin-top: 1px;
+}
+.motivazione { font-size: 13.5px; line-height: 1.5; color: var(--secondario); }
+.actions { display: flex; gap: 8px; margin-top: 14px; }
+.btn { border: none; border-radius: 15px; padding: 15px; text-align: center; font-size: 16px; font-weight: 600; letter-spacing: -.02em; cursor: pointer; font-family: inherit; }
+.btn.primario { flex: 2; background: var(--azione); color: var(--superficie); }
+.btn.secondario { flex: 1; background: var(--superficie); border: 1px solid var(--bordo-forte); color: var(--primario); font-weight: 500; }
+.meta { text-align: center; font-size: 11.5px; color: var(--terziario); margin-top: 11px; }
+
+/* --- checklist panel --- */
+.checklist {
+  margin-top: 40px;
+  background: var(--superficie);
+  border: 1px solid var(--bordo);
+  border-radius: 18px;
+  padding: 24px 26px;
+  max-width: 720px;
+}
+.checklist h2 { font-size: 15px; font-weight: 600; letter-spacing: -.01em; margin: 0 0 14px; }
+.checklist dl { margin: 0; }
+.checklist dt { font-size: 12.5px; font-weight: 600; color: var(--primario); margin-top: 12px; }
+.checklist dt:first-child { margin-top: 0; }
+.checklist dd { margin: 3px 0 0; font-size: 12.5px; line-height: 1.55; color: var(--secondario); }
+.checklist code { background: var(--chip); padding: 1px 5px; border-radius: 4px; font-size: 11.5px; }
+.disclosure {
+  margin-top: 28px; padding: 12px 16px; border-radius: 12px;
+  background: var(--chip); font-size: 12px; line-height: 1.6; color: var(--secondario); max-width: 720px;
+}
+</style>
+
+<div class="wrap">
+  <div class="intro">
+    <div class="eyebrow">Draft · golden example · pagina statica isolata</div>
+    <h1>Cosa faccio adesso — stato risultato</h1>
+    <p class="note">Non è un componente riusabile: è il riferimento visivo per approvare colori, spaziature, raggi e composizione prima di scrivere il componente Svelte vero. Stessa card mostrata dentro la cornice mobile (con tab bar) e dentro la cornice desktop (con sidebar) — <b>è lo stesso identico markup di card in entrambe</b>, solo il contenitore cambia.</p>
+  </div>
+
+  <div class="frames">
+
+    <!-- MOBILE -->
+    <div class="mobile">
+      <div class="content">
+        <div class="kicker-row">
+          <div class="eyebrow-sm">Fai questo adesso</div>
+          <button class="change-ctx">cambia contesto</button>
+        </div>
+        <div class="card">
+          <div class="chips">
+            <span class="chip energia">Operativo</span>
+            <span class="chip durata">15 min</span>
+            <span class="chip importanza">Importanza 2</span>
+          </div>
+          <div class="titolo">Rispondere alle recensioni Google de L'Ancora</div>
+          <div class="motivazione-row">
+            <div class="badge-ai">AI</div>
+            <div class="motivazione">Sono arrivate ieri — rispondere ora le tiene fresche e ti costa solo un quarto d'ora.</div>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="btn primario">Fatto</button>
+          <button class="btn secondario">Un altro</button>
+        </div>
+        <div class="meta">Scelta tra 2 task compatibili</div>
+      </div>
+      <div class="tabbar">
+        <div class="tab active"><div class="dot"></div><div class="lbl">Adesso</div></div>
+        <div class="tab"><div class="dot"></div><div class="lbl">Cattura</div></div>
+        <div class="tab"><div class="dot"></div><div class="lbl">Triage</div></div>
+      </div>
+      <div class="homebar"><span></span></div>
+    </div>
+
+    <!-- DESKTOP -->
+    <div class="desktop">
+      <div class="sidebar">
+        <div class="logo">Draft</div>
+        <div class="navitem">
+          <div class="navlink active">Adesso</div>
+          <div class="navlink">Cattura</div>
+          <div class="navlink">Triage</div>
+        </div>
+      </div>
+      <div class="desktop-main">
+        <div class="content">
+          <div class="kicker-row">
+            <div class="eyebrow-sm">Fai questo adesso</div>
+            <button class="change-ctx">cambia contesto</button>
+          </div>
+          <div class="card">
+            <div class="chips">
+              <span class="chip energia">Operativo</span>
+              <span class="chip durata">15 min</span>
+              <span class="chip importanza">Importanza 2</span>
+            </div>
+            <div class="titolo">Rispondere alle recensioni Google de L'Ancora</div>
+            <div class="motivazione-row">
+              <div class="badge-ai">AI</div>
+              <div class="motivazione">Sono arrivate ieri — rispondere ora le tiene fresche e ti costa solo un quarto d'ora.</div>
+            </div>
+          </div>
+          <div class="actions">
+            <button class="btn primario">Fatto</button>
+            <button class="btn secondario">Un altro</button>
+          </div>
+          <div class="meta">Scelta tra 2 task compatibili</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="checklist">
+    <h2>Pattern estratti — usali per ogni componente nuovo</h2>
+    <dl>
+      <dt>Card</dt>
+      <dd>Sempre <code>superficie</code> + bordo <code>rgba(26,28,32,.08)</code> + raggio <code>22px</code> per la card "proposta" (<code>18px</code> per le altre card di contenuto) + l'ombra doppia bassissima. È l'unico elemento con ombra pronunciata in tutta l'app.</dd>
+      <dt>Bottoni</dt>
+      <dd>Raggio <code>15px</code>, altezza tocco ≥48px. <b>Un solo bottone pieno per schermata</b> — qui "Fatto" (azzurro, chiude il ciclo). Il secondario è sempre bordo, mai riempito.</dd>
+      <dt>Chip</dt>
+      <dd>Raggio <code>7px</code> — più "duri" della card, non sembrano bottoni. Le energie hanno ciascuna la propria coppia testo/fondo (qui Operativo: <code>#6B5B3F</code> su <code>#F0E9DB</code>); importanza/scadenza usano sempre l'azzurro profondo, mai un colore nuovo.</dd>
+      <dt>Testo generato dall'AI</dt>
+      <dd>Sempre badge quadrato "AI" (azzurro pieno, raggio 7px) + corpo testo accanto, mai da solo senza badge — è il modo in cui l'utente distingue "l'ha detto l'AI" da "l'ho scritto io".</dd>
+      <dt>Titolo del task</dt>
+      <dd>Serif, non sans — l'unico posto oltre al Triage dove compare il serif. Tutto il resto dell'interfaccia (chip, bottoni, meta) resta sans.</dd>
+      <dt>Un solo colore d'azione</dt>
+      <dd>L'azzurro (<code>#2E75A8</code>) è l'unico colore "di sistema" nell'app — se in una schermata compaiono due elementi azzurri con ruoli diversi, uno dei due è sbagliato.</dd>
+      <dt>Mobile vs desktop</dt>
+      <dd>Stesso identico markup della card — cambia solo il contenitore (tab bar in basso su mobile, sidebar a sinistra su desktop). Nessuna vista "diversa", stessa fonte dati e stesso componente.</dd>
+    </dl>
+  </div>
+
+  <div class="disclosure">
+    <b>Nota onesta:</b> qui uso font di sistema (non Instrument Sans/Serif) perché la sandbox di questo artifact blocca il caricamento di font esterni — nell'app vera (SvelteKit) Google Fonts funziona senza problemi ed è già configurato così nello spec. Il tema scuro non è incluso: è stato rimandato di proposito, non dimenticato.
+  </div>
+</div>
