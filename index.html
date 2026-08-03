@@ -102,6 +102,7 @@ body {
   background: var(--superficie);
   border: 1px solid var(--bordo);
   border-radius: 22px;
+  clip-path: url(#squircle);
   padding: 20px 19px;
   box-shadow: 0 1px 1px rgba(26,28,32,.03), 0 16px 34px -16px rgba(26,28,32,.16);
 }
@@ -116,21 +117,39 @@ body {
 .motivazione { font-size: 13.5px; line-height: 1.5; color: var(--secondario); }
 
 .actions { display: flex; gap: 8px; margin-top: 15px; }
+/* .btn è il contenitore non ritagliato (gestisce focus ring e press);
+   .surf è la superficie visibile, ritagliata a squircle — separati apposta:
+   clip-path taglierebbe anche l'anello di focus se stesse sullo stesso elemento. */
 .btn {
-  border: none; border-radius: 15px; padding: 15px; text-align: center;
-  font-size: 16px; font-weight: 600; letter-spacing: -.02em; cursor: pointer; font-family: inherit;
-  transition: transform .32s cubic-bezier(.32,.72,0,1), background .22s cubic-bezier(.32,.72,0,1), opacity .22s cubic-bezier(.32,.72,0,1);
+  border: none; background: none; padding: 0; cursor: pointer; font-family: inherit;
+  border-radius: 15px;
+  transition: transform .32s cubic-bezier(.32,.72,0,1), opacity .22s cubic-bezier(.32,.72,0,1);
 }
-.btn.primario { flex: 2; background: var(--azione); color: var(--superficie); }
-.btn.primario:hover { background: var(--azione-premuto); }
-.btn.secondario { flex: 1; background: var(--azione-chip); border: none; color: var(--azione-premuto); font-weight: 600; }
-.btn.secondario:hover { background: #d7e3ec; }
+.btn .surf {
+  display: block; border-radius: 15px; clip-path: url(#squircle); padding: 15px; text-align: center;
+  font-size: 16px; font-weight: 600; letter-spacing: -.02em;
+  transition: background .22s cubic-bezier(.32,.72,0,1);
+}
+.btn.primario { flex: 2; }
+.btn.primario .surf { background: var(--azione); color: var(--superficie); }
+.btn.primario:hover .surf { background: var(--azione-premuto); }
+.btn.secondario { flex: 1; }
+.btn.secondario .surf { background: var(--azione-chip); color: var(--azione-premuto); font-weight: 600; }
+.btn.secondario:hover .surf { background: #d7e3ec; }
 .btn:active { transform: scale(.965); opacity: .82; }
 .btn:focus-visible { outline: none; box-shadow: 0 0 0 4px color-mix(in srgb, var(--azione) 30%, transparent); }
 .meta { text-align: center; font-size: 11.5px; color: var(--terziario); margin-top: 12px; }
 
 .caption { text-align: center; font-size: 12px; color: var(--terziario); max-width: 320px; }
 </style>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <clipPath id="squircle" clipPathUnits="objectBoundingBox">
+      <path d="M1.00000,0.50000 L0.99938,0.68065 L0.99753,0.73807 L0.99443,0.77941 L0.99006,0.81258 L0.98441,0.84049 L0.97744,0.86458 L0.96911,0.88566 L0.95936,0.90426 L0.94811,0.92071 L0.93528,0.93528 L0.92071,0.94811 L0.90426,0.95936 L0.88566,0.96911 L0.86458,0.97744 L0.84049,0.98441 L0.81258,0.99006 L0.77941,0.99443 L0.73807,0.99753 L0.68065,0.99938 L0.50000,1.00000 L0.31935,0.99938 L0.26193,0.99753 L0.22059,0.99443 L0.18742,0.99006 L0.15951,0.98441 L0.13542,0.97744 L0.11434,0.96911 L0.09574,0.95936 L0.07929,0.94811 L0.06472,0.93528 L0.05189,0.92071 L0.04064,0.90426 L0.03089,0.88566 L0.02256,0.86458 L0.01559,0.84049 L0.00994,0.81258 L0.00557,0.77941 L0.00247,0.73807 L0.00062,0.68065 L0.00000,0.50000 L0.00062,0.31935 L0.00247,0.26193 L0.00557,0.22059 L0.00994,0.18742 L0.01559,0.15951 L0.02256,0.13542 L0.03089,0.11434 L0.04064,0.09574 L0.05189,0.07929 L0.06472,0.06472 L0.07929,0.05189 L0.09574,0.04064 L0.11434,0.03089 L0.13542,0.02256 L0.15951,0.01559 L0.18742,0.00994 L0.22059,0.00557 L0.26193,0.00247 L0.31935,0.00062 L0.50000,0.00000 L0.68065,0.00062 L0.73807,0.00247 L0.77941,0.00557 L0.81258,0.00994 L0.84049,0.01559 L0.86458,0.02256 L0.88566,0.03089 L0.90426,0.04064 L0.92071,0.05189 L0.93528,0.06472 L0.94811,0.07929 L0.95936,0.09574 L0.96911,0.11434 L0.97744,0.13542 L0.98441,0.15951 L0.99006,0.18742 L0.99443,0.22059 L0.99753,0.26193 L0.99938,0.31935 L1.00000,0.50000 Z" />
+    </clipPath>
+  </defs>
+</svg>
 
 <div class="stage">
   <div class="eyebrow-top">Draft · layout · Cosa faccio adesso · mobile + desktop</div>
@@ -157,8 +176,8 @@ body {
           </div>
         </div>
         <div class="actions reveal" style="animation-delay:.65s">
-          <button class="btn primario">Fatto</button>
-          <button class="btn secondario">Un altro</button>
+          <button class="btn primario"><span class="surf">Fatto</span></button>
+          <button class="btn secondario"><span class="surf">Un altro</span></button>
         </div>
         <div class="meta reveal" style="animation-delay:.75s">Scelta tra 2 task compatibili</div>
       </div>
@@ -199,8 +218,8 @@ body {
             </div>
           </div>
           <div class="actions reveal" style="animation-delay:.75s">
-            <button class="btn primario">Fatto</button>
-            <button class="btn secondario">Un altro</button>
+            <button class="btn primario"><span class="surf">Fatto</span></button>
+            <button class="btn secondario"><span class="surf">Un altro</span></button>
           </div>
           <div class="meta reveal" style="animation-delay:.85s">Scelta tra 2 task compatibili</div>
         </div>
